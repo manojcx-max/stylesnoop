@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StyleSnoop — All History</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="history.css">
+</head>
+<body>
+  <div class="dashboard-container">
+    
+    <!-- ── Left Sidebar ── -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo-area">
+          <img class="logo-svg" src="icons/icon 128x128.png" alt="StyleSnoop Logo">
+          <span class="logo-name">StyleSnoop</span>
+        </div>
+        <button class="collapse-btn" id="sidebar-collapse" title="Collapse sidebar">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="11 17 6 12 11 7"/><polyline points="18 17 13 12 18 7"/>
+          </svg>
+        </button>
+      </div>
+      
+      <div class="sidebar-sections">
+        <!-- INSPECT Section -->
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Inspect</div>
+          <button class="menu-btn" id="menu-inspect">
+            <svg class="menu-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/>
+            </svg>
+            <span class="menu-text">Inspect Element</span>
+            <span class="hotkey-badge">⌥⇧I</span>
+          </button>
+        </div>
+
+        <!-- LIBRARY Section -->
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Library</div>
+          <button class="menu-btn menu-btn--active" id="menu-history">
+            <svg class="menu-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+            </svg>
+            <span class="menu-text">History</span>
+          </button>
+        </div>
+
+        <!-- SETTINGS Section -->
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Settings</div>
+          <button class="menu-btn" id="menu-settings">
+            <svg class="menu-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+            </svg>
+            <span class="menu-text">Settings</span>
+          </button>
+        </div>
+      </div>
+      
+      <footer class="sidebar-footer">
+        <div class="footer-status-text">
+          <div class="footer-title">StyleSnoop v1.0.0</div>
+          <div class="footer-subtitle">Made with ❤️ for builders</div>
+        </div>
+      </footer>
+    </aside>
+    
+    <!-- ── Main Dashboard Content ── -->
+    <main class="main-content" id="main-content">
+      
+      <!-- Top Header Row (Search & Theme toggle) -->
+      <header class="dashboard-header">
+        <div class="search-container">
+          <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input type="text" id="search-input" class="search-input" placeholder="Search components...">
+          <kbd class="search-kbd">⌘K</kbd>
+        </div>
+        
+        <button class="theme-toggle-btn" id="theme-toggle" title="Toggle theme">
+          <!-- Sun Icon (Default) -->
+          <svg class="theme-icon sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+          <!-- Moon Icon (for Dark Mode) -->
+          <svg class="theme-icon moon-icon ss-hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
+      </header>
+
+      <!-- ── HISTORY VIEW PANEL ── -->
+      <section class="view-panel" id="history-view">
+        <div class="view-header">
+          <h1 class="main-title">History</h1>
+          <p class="main-subtitle">Your saved Tailwind components</p>
+        </div>
+
+        <!-- Filter / Sorting Row -->
+        <div class="filters-row">
+          <div class="custom-dropdown" id="site-filter-wrap" data-filter="siteFilter">
+            <div class="dropdown-trigger">
+              <span class="dropdown-val" id="site-filter-val">All Sites</span>
+              <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="dropdown-options" id="site-filter-options">
+              <div class="dropdown-option option--selected" data-value="All Sites">All Sites</div>
+            </div>
+          </div>
+          
+          <div class="custom-dropdown" id="type-filter-wrap" data-filter="typeFilter">
+            <div class="dropdown-trigger">
+              <span class="dropdown-val" id="type-filter-val">All Types</span>
+              <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="dropdown-options" id="type-filter-options">
+              <div class="dropdown-option option--selected" data-value="All Types">All Types</div>
+              <div class="dropdown-option" data-value="BUTTON">Buttons</div>
+              <div class="dropdown-option" data-value="TEXT">Text / Headings</div>
+              <div class="dropdown-option" data-value="IMAGE">Images</div>
+              <div class="dropdown-option" data-value="SECTION">Sections</div>
+              <div class="dropdown-option" data-value="CARD">Cards / Containers</div>
+            </div>
+          </div>
+          
+          <div class="custom-dropdown" id="sort-filter-wrap" data-filter="sortFilter">
+            <div class="dropdown-trigger">
+              <span class="dropdown-val" id="sort-filter-val">Newest First</span>
+              <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="dropdown-options" id="sort-filter-options">
+              <div class="dropdown-option option--selected" data-value="Newest First">Newest First</div>
+              <div class="dropdown-option" data-value="Oldest First">Oldest First</div>
+              <div class="dropdown-option" data-value="Alphabetical">Alphabetical</div>
+            </div>
+          </div>
+
+          <button class="export-btn" id="export-all-btn" style="margin-left: auto;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="17 8 12 3 7 8"/>
+              <line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+            Export All
+          </button>
+        </div>
+
+        <!-- Grid Container -->
+        <div class="grid-container" id="grid-container">
+          <!-- Dynamically generated items -->
+        </div>
+
+        <!-- No More Components Footer Status -->
+        <div class="no-more-footer" id="no-more-footer">
+          <span>No more components to load ✦</span>
+        </div>
+      </section>
+
+      <!-- ── SETTINGS VIEW PANEL ── -->
+      <section class="view-panel ss-hidden" id="settings-view">
+        <div class="view-header">
+          <h1 class="main-title">Settings</h1>
+          <p class="main-subtitle">Configure your StyleSnoop preferences</p>
+        </div>
+
+        <div class="settings-card">
+          <div class="setting-item">
+            <div class="setting-info">
+              <div class="setting-label">Default Tailwind Version</div>
+              <div class="setting-desc">Tailwind version to use when generating component markup.</div>
+            </div>
+            <div class="setting-control">
+              <select class="settings-select" id="settings-tw-version">
+                <option value="v4">Tailwind v4 (Modern)</option>
+                <option value="v3">Tailwind v3 (Legacy)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="setting-item">
+            <div class="setting-info">
+              <div class="setting-label">Highlight Color</div>
+              <div class="setting-desc">Outline styling color when scanning elements on the page.</div>
+            </div>
+            <div class="setting-control" style="display:flex; align-items:center; gap:8px;">
+              <input type="color" id="settings-highlight-color" value="#6366f1" class="settings-color-input">
+              <span id="settings-color-val" style="font-family:'Geist Mono',monospace; font-size:12px; color:var(--text-3);">#6366F1</span>
+            </div>
+          </div>
+
+          <div class="setting-item">
+            <div class="setting-info">
+              <div class="setting-label">Highlight Enabled</div>
+              <div class="setting-desc">Toggle the hover outline effect on inspected tabs.</div>
+            </div>
+            <div class="setting-control">
+              <label class="ss-settings-switch">
+                <input type="checkbox" id="settings-highlight-toggle" checked>
+                <span class="ss-settings-slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+    </main>
+  </div>
+  
+  <!-- Context Menu (hidden by default) -->
+  <div class="context-menu ss-hidden" id="context-menu">
+    <button class="ctx-item" data-action="favorite" id="ctx-fav-btn">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+      </svg>
+      <span id="ctx-fav-label">Favorite</span>
+    </button>
+    <button class="ctx-item" data-action="copy-tailwind">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="9" y="9" width="13" height="13" rx="2"/>
+        <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+      </svg>
+      Copy Tailwind
+    </button>
+    <button class="ctx-item" data-action="copy-html">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="16 18 22 12 16 6"/>
+        <polyline points="8 6 2 12 8 18"/>
+      </svg>
+      Copy HTML
+    </button>
+    <div class="ctx-divider"></div>
+    <button class="ctx-item ctx-item--danger" data-action="delete">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="3 6 5 6 21 6"/>
+        <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+        <path d="M10 11v6m4-6v6"/>
+        <path d="M9 6V4h6v2"/>
+      </svg>
+      Delete
+    </button>
+  </div>
+
+  <!-- Code Details Modal -->
+  <div class="modal-backdrop modal-hidden" id="details-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-header-title-row">
+          <span class="modal-badge" id="modal-badge">CARD</span>
+          <h2 class="modal-title" id="modal-title">Element Name</h2>
+        </div>
+        <button class="modal-close-btn" id="modal-close" title="Close Details">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+        <div class="modal-meta-row">
+          <span class="modal-meta-item" id="modal-tag">tag-selector</span>
+          <span class="modal-meta-item" id="modal-site">site.com</span>
+          <span class="modal-meta-item" id="modal-time">time</span>
+        </div>
+        
+        <div class="modal-tabs-row">
+          <div class="modal-tabs">
+            <button class="modal-tab modal-tab--active" data-lang="React (TSX)">React (TSX)</button>
+            <button class="modal-tab" data-lang="React (JSX)">React (JSX)</button>
+            <button class="modal-tab" data-lang="Vue 3">Vue 3</button>
+            <button class="modal-tab" data-lang="HTML">HTML</button>
+          </div>
+          
+          <button class="modal-copy-btn" id="modal-copy-btn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <rect x="9" y="9" width="13" height="13" rx="2"/>
+              <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+            </svg>
+            <span id="modal-copy-btn-text">Copy Code</span>
+          </button>
+        </div>
+        
+        <div class="modal-code-wrap">
+          <pre class="modal-code"><code id="modal-code-inner"></code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="history.js"></script>
+</body>
+</html>
