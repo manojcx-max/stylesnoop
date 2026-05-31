@@ -125,6 +125,7 @@ body {
   gap: 10px;
   overflow: hidden;
   transition: opacity 0.15s ease;
+  cursor: pointer;
 }
 
 .sidebar.collapsed .logo-name {
@@ -165,8 +166,7 @@ body {
 }
 
 .sidebar.collapsed .collapse-btn {
-  transform: rotate(180deg);
-  margin: 0 auto;
+  display: none;
 }
 
 .sidebar-sections {

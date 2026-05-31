@@ -301,6 +301,17 @@ function wireDashboardEvents() {
     });
   }
 
+  // Click logo to expand if collapsed
+  const logoArea = document.querySelector('.logo-area');
+  if (logoArea) {
+    logoArea.addEventListener('click', () => {
+      if (sidebar.classList.contains('collapsed')) {
+        sidebar.classList.remove('collapsed');
+        ext.storage.local.set({ sidebarCollapsed: false });
+      }
+    });
+  }
+
   // Theme Toggle
   if (themeToggle) {
     themeToggle.addEventListener('click', () => {
