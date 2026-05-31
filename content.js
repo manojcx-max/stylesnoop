@@ -2619,14 +2619,7 @@
           </div>
         </div>
 
-        <!-- Inspector View Footer Status -->
-        <div class="ss-footer-row" style="padding:10px 16px; display:flex; justify-content:space-between; align-items:center; border-top:1px solid #e2e8f0; font-size:10px; color:#64748b; background:#fff;">
-          <div style="display:flex; align-items:center; gap:6px;">
-            <span style="width:6px; height:6px; background:#10b981; border-radius:50%;"></span>
-            <span>Free forever</span>
-          </div>
-          <a href="https://stylesnoop.io" target="_blank" style="color:#64748b; text-decoration:none;">stylesnoop.io</a>
-        </div>
+
       </div>
     </div>
   </div>
