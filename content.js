@@ -148,6 +148,11 @@
   let shadowRoot = null;
   let panelEl    = null;
   let tooltipEl  = null;
+  let isDragging = false;
+  let dragStartX = 0;
+  let dragStartY = 0;
+  let panelRight = 0;
+  let panelTop   = 0;
   // WeakMap for saved outlines
   const savedOutlines = new WeakMap();
 
