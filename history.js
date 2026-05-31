@@ -72,7 +72,16 @@ function loadSettingsPageValues() {
     const hlColor = res.highlightColor || '#6366f1';
     const hlEnabled = res.highlightEnabled !== undefined ? res.highlightEnabled : true;
     
-    if (settingsTwVersion) settingsTwVersion.value = twVer;
+    const twValEl = document.getElementById('settings-tw-version-val');
+    if (twValEl) {
+      twValEl.textContent = twVer === 'v4' ? 'Tailwind v4 (Modern)' : 'Tailwind v3 (Legacy)';
+    }
+    const twOptionsEl = document.getElementById('settings-tw-version-options');
+    if (twOptionsEl) {
+      twOptionsEl.querySelectorAll('.dropdown-option').forEach(opt => {
+        opt.classList.toggle('option--selected', opt.dataset.value === twVer);
+      });
+    }
     if (settingsHighlightColor) settingsHighlightColor.value = hlColor;
     if (settingsColorVal) settingsColorVal.textContent = hlColor.toUpperCase();
     if (settingsHighlightToggle) settingsHighlightToggle.checked = hlEnabled;
@@ -343,9 +352,27 @@ function wireDashboardEvents() {
   });
 
   // Settings inputs
-  if (settingsTwVersion) {
-    settingsTwVersion.addEventListener('change', (e) => {
-      ext.storage.local.set({ selectedTailwindVersion: e.target.value });
+  const twWrap = document.getElementById('settings-tw-version-wrap');
+  const twValEl = document.getElementById('settings-tw-version-val');
+  const twOptionsEl = document.getElementById('settings-tw-version-options');
+  if (twWrap && twValEl && twOptionsEl) {
+    twWrap.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOption = e.target.closest('.dropdown-option');
+      if (isOption) {
+        const val = isOption.dataset.value;
+        twValEl.textContent = isOption.textContent;
+        twOptionsEl.querySelectorAll('.dropdown-option').forEach(opt => {
+          opt.classList.toggle('option--selected', opt.dataset.value === val);
+        });
+        ext.storage.local.set({ selectedTailwindVersion: val });
+        twWrap.classList.remove('open');
+      } else {
+        document.querySelectorAll('.custom-dropdown.open').forEach(d => {
+          if (d !== twWrap) d.classList.remove('open');
+        });
+        twWrap.classList.toggle('open');
+      }
     });
   }
   if (settingsHighlightColor) {

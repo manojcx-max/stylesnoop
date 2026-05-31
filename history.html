@@ -181,10 +181,16 @@
               <div class="setting-desc">Tailwind version to use when generating component markup.</div>
             </div>
             <div class="setting-control">
-              <select class="settings-select" id="settings-tw-version">
-                <option value="v4">Tailwind v4 (Modern)</option>
-                <option value="v3">Tailwind v3 (Legacy)</option>
-              </select>
+              <div class="custom-dropdown" id="settings-tw-version-wrap">
+                <div class="dropdown-trigger">
+                  <span class="dropdown-val" id="settings-tw-version-val">Tailwind v4 (Modern)</span>
+                  <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="dropdown-options" id="settings-tw-version-options" style="min-width: 180px; right: 0;">
+                  <div class="dropdown-option option--selected" data-value="v4">Tailwind v4 (Modern)</div>
+                  <div class="dropdown-option" data-value="v3">Tailwind v3 (Legacy)</div>
+                </div>
+              </div>
             </div>
           </div>
 
