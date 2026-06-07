@@ -23,6 +23,7 @@ const ctxFavBtn = document.getElementById('ctx-fav-btn');
 const ctxFavLabel = document.getElementById('ctx-fav-label');
 const menuInspectBtn = document.getElementById('menu-inspect');
 const menuHistory = document.getElementById('menu-history');
+const menuFavorites = document.getElementById('menu-favorites');
 const menuSettings = document.getElementById('menu-settings');
 
 // Views
@@ -62,6 +63,8 @@ async function initDashboard() {
     renderDashboard();
   }
 
+  if (menuHistory) menuHistory.classList.add('menu-btn--active');
+  
   // Load Settings Page values
   loadSettingsPageValues();
 }
@@ -92,12 +95,28 @@ function loadSettingsPageValues() {
 function renderDashboard() {
   // Clear container
   gridContainer.innerHTML = '';
+
+  const titleEl = document.querySelector('#history-view .main-title');
+  const subtitleEl = document.querySelector('#history-view .main-subtitle');
+  if (titleEl && subtitleEl) {
+    if (activeTab === 'favorites') {
+      titleEl.textContent = 'Favorites';
+      subtitleEl.textContent = 'Your starred Tailwind components';
+    } else {
+      titleEl.textContent = 'History';
+      subtitleEl.textContent = 'Your saved Tailwind components';
+    }
+  }
   
   // Filter items
   let filtered = historyData.filter(item => {
-    // Search query
-    const matchSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                        item.tag.toLowerCase().includes(searchQuery.toLowerCase());
+    if (activeTab === 'favorites' && !item.favorited) return false;
+
+    // Search query (case-sensitive on website domain, component name, and tag selector)
+    const matchSearch = searchQuery === '' || 
+                        (item.name && item.name.includes(searchQuery)) || 
+                        (item.tag && item.tag.includes(searchQuery)) || 
+                        (item.site && item.site.includes(searchQuery));
     
     // Site filter
     const matchSite = siteFilter === 'All Sites' || item.site === siteFilter;
@@ -163,7 +182,18 @@ function renderDashboard() {
   document.getElementById('no-more-footer').style.display = 'flex';
   
   // Render cards
+  let lastDate = null;
   filtered.forEach(item => {
+    const itemTime = item.time || 'Unknown Date';
+    if (itemTime !== lastDate) {
+      lastDate = itemTime;
+      const dateHeader = document.createElement('div');
+      dateHeader.className = 'history-date-header';
+      dateHeader.style.cssText = 'grid-column: 1 / -1; font-size: 13.5px; font-weight: 700; color: var(--text-2); margin: 24px 0 10px 0; border-bottom: 1.5px solid var(--border); padding-bottom: 8px; text-align: left; width: 100%;';
+      dateHeader.textContent = itemTime;
+      gridContainer.appendChild(dateHeader);
+    }
+
     const card = document.createElement('div');
     card.className = 'card-item';
     card.dataset.id = item.id;
@@ -338,15 +368,29 @@ function wireDashboardEvents() {
 
   // Tab Navigation between views
   menuHistory.addEventListener('click', () => {
+    activeTab = 'all';
     menuHistory.classList.add('menu-btn--active');
+    menuFavorites.classList.remove('menu-btn--active');
     menuSettings.classList.remove('menu-btn--active');
     historyView.classList.remove('ss-hidden');
     settingsView.classList.add('ss-hidden');
+    renderDashboard();
+  });
+
+  menuFavorites.addEventListener('click', () => {
+    activeTab = 'favorites';
+    menuFavorites.classList.add('menu-btn--active');
+    menuHistory.classList.remove('menu-btn--active');
+    menuSettings.classList.remove('menu-btn--active');
+    historyView.classList.remove('ss-hidden');
+    settingsView.classList.add('ss-hidden');
+    renderDashboard();
   });
 
   menuSettings.addEventListener('click', () => {
     menuSettings.classList.add('menu-btn--active');
     menuHistory.classList.remove('menu-btn--active');
+    menuFavorites.classList.remove('menu-btn--active');
     settingsView.classList.remove('ss-hidden');
     historyView.classList.add('ss-hidden');
   });

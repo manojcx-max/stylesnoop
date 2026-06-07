@@ -83,51 +83,57 @@ ext.tabs.onRemoved.addListener((tabId) => {
 // Toggle State Helper
 function toggleInspectionForTab(tabId) {
   console.log("BACKGROUND toggleInspectionForTab:", tabId);
-  ext.storage.local.get(["inspectingTabs", "highlightColor", "highlightEnabled"], (settings) => {
-    let inspectingTabs = settings.inspectingTabs || [];
-    const isActive = inspectingTabs.includes(tabId);
-    
-    if (isActive) {
-      // Deactivate
-      inspectingTabs = inspectingTabs.filter(id => id !== tabId);
-      ext.storage.local.set({ inspectingTabs }, () => {
-        updateBadge(tabId, false);
-        ext.tabs.sendMessage(tabId, { action: "stop-inspecting" }).catch(() => {});
-      });
-    } else {
-      // Activate
-      inspectingTabs.push(tabId);
-      ext.storage.local.set({ inspectingTabs }, () => {
-        updateBadge(tabId, true);
-        
-        // Ping tab script to verify if loaded, inject if not (recovers from fresh extension load)
-        ext.tabs.sendMessage(tabId, { action: "ping" }, (response) => {
-          const config = {
-            action: "start-inspecting",
-            highlightColor: settings.highlightColor || "#6366f1",
-            highlightEnabled: settings.highlightEnabled !== undefined ? settings.highlightEnabled : true
-          };
-
-          if (ext.runtime.lastError || !response) {
-            // Script not loaded, inject content.js dynamically
-            ext.scripting.executeScript({
-              target: { tabId },
-              files: ["content.js"]
-            }, () => {
-              if (ext.runtime.lastError) {
-                console.error("StyleSnoop: Content script injection failed", ext.runtime.lastError.message);
-                return;
-              }
-              // Send message now that it's injected
-              ext.tabs.sendMessage(tabId, config).catch(() => {});
-            });
-          } else {
-            // Send start message
-            ext.tabs.sendMessage(tabId, config).catch(() => {});
-          }
-        });
-      });
+  ext.tabs.get(tabId, (tab) => {
+    if (ext.runtime.lastError || !tab) {
+      console.log("BACKGROUND: Tab no longer exists:", tabId);
+      return;
     }
+    ext.storage.local.get(["inspectingTabs", "highlightColor", "highlightEnabled"], (settings) => {
+      let inspectingTabs = settings.inspectingTabs || [];
+      const isActive = inspectingTabs.includes(tabId);
+      
+      if (isActive) {
+        // Deactivate
+        inspectingTabs = inspectingTabs.filter(id => id !== tabId);
+        ext.storage.local.set({ inspectingTabs }, () => {
+          updateBadge(tabId, false);
+          ext.tabs.sendMessage(tabId, { action: "stop-inspecting" }).catch(() => {});
+        });
+      } else {
+        // Activate
+        inspectingTabs.push(tabId);
+        ext.storage.local.set({ inspectingTabs }, () => {
+          updateBadge(tabId, true);
+          
+          // Ping tab script to verify if loaded, inject if not (recovers from fresh extension load)
+          ext.tabs.sendMessage(tabId, { action: "ping" }, (response) => {
+            const config = {
+              action: "start-inspecting",
+              highlightColor: settings.highlightColor || "#6366f1",
+              highlightEnabled: settings.highlightEnabled !== undefined ? settings.highlightEnabled : true
+            };
+
+            if (ext.runtime.lastError || !response) {
+              // Script not loaded, inject content.js dynamically
+              ext.scripting.executeScript({
+                target: { tabId },
+                files: ["content.js"]
+              }, () => {
+                if (ext.runtime.lastError) {
+                  console.error("StyleSnoop: Content script injection failed", ext.runtime.lastError.message);
+                  return;
+                }
+                // Send message now that it's injected
+                ext.tabs.sendMessage(tabId, config).catch(() => {});
+              });
+            } else {
+              // Send start message
+              ext.tabs.sendMessage(tabId, config).catch(() => {});
+            }
+          });
+        });
+      }
+    });
   });
 }
 
@@ -154,12 +160,14 @@ function setTabInspectionActive(tabId, active) {
 
 // Update Extension Icon Badge
 function updateBadge(tabId, active) {
-  if (active) {
-    ext.action.setBadgeText({ text: "●", tabId });
-    ext.action.setBadgeBackgroundColor({ color: "#10B981", tabId }); // Green
-  } else {
-    ext.action.setBadgeText({ text: "", tabId }); // Clears badge
-  }
+  try {
+    if (active) {
+      ext.action.setBadgeText({ text: "●", tabId }).catch(() => {});
+      ext.action.setBadgeBackgroundColor({ color: "#10B981", tabId }).catch(() => {}); // Green
+    } else {
+      ext.action.setBadgeText({ text: "", tabId }).catch(() => {}); // Clears badge
+    }
+  } catch (_) {}
 }
 
 // Check system URL exclusions
